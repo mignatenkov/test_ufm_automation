@@ -10,13 +10,14 @@ public class Tests {
 
     @BeforeClass
     public void beforeClass() throws InterruptedException {
-        new Generator().generateRandomInputFile(10011, 20);
-        new Generator().generateRandomInputFile(10012, 1000);
-        new Generator().generateRandomInputFile(10001, 20);
-        new Generator().generateRandomInputFile(10002, 99);
-        new Generator().generateRandomInputFile(10003, 100);
-        new Generator().generateRandomInputFile(10004, 101);
-        new Generator().generateRandomInputFile(10005, 102);
+        Generator generator = new Generator();
+        generator.generateRandomInputFile(10011, 20);
+        generator.generateRandomInputFile(10012, 1000);
+        generator.generateRandomInputFile(10001, 20);
+        generator.generateRandomInputFile(10002, 99);
+        generator.generateRandomInputFile(10003, 100);
+        generator.generateRandomInputFile(10004, 101);
+        generator.generateRandomInputFile(10005, 102);
         Thread.sleep(5000); //wait until app will process files
     }
 
@@ -35,21 +36,23 @@ public class Tests {
     @Features("Compare five files to expected output results")
     @Test
     public void fiveFiles() {
-        new Comparator().compareFileToFile(processedFolder + "10001.json", outputFolder + "10001.json");
-        new Comparator().compareFileToFile(processedFolder + "10002.json", outputFolder + "10002.json");
-        new Comparator().compareFileToFile(processedFolder + "10003.json", outputFolder + "10003.json");
-        new Comparator().compareFileToFile(processedFolder + "10004.json", outputFolder + "10004.json");
-        new Comparator().compareFileToFile(processedFolder + "10005.json", outputFolder + "10005.json");
+        Comparator comparator = new Comparator();
+        comparator.compareFileToFile(processedFolder + "10001.json", outputFolder + "10001.json");
+        comparator.compareFileToFile(processedFolder + "10002.json", outputFolder + "10002.json");
+        comparator.compareFileToFile(processedFolder + "10003.json", outputFolder + "10003.json");
+        comparator.compareFileToFile(processedFolder + "10004.json", outputFolder + "10004.json");
+        comparator.compareFileToFile(processedFolder + "10005.json", outputFolder + "10005.json");
     }
 
     @Features("Compare five input files to expected output in DB")
     @Test
     public void fiveFilesDB() {
-        new Comparator().compareFileToDb(processedFolder + "10001.json", 10001);
-        new Comparator().compareFileToDb(processedFolder + "10002.json", 10002);
-        new Comparator().compareFileToDb(processedFolder + "10003.json", 10003);
-        new Comparator().compareFileToDb(processedFolder + "10004.json", 10004);
-        new Comparator().compareFileToDb(processedFolder + "10005.json", 10005);
+        Comparator comparator = new Comparator();
+        comparator.compareFileToDb(processedFolder + "10001.json", 10001);
+        comparator.compareFileToDb(processedFolder + "10002.json", 10002);
+        comparator.compareFileToDb(processedFolder + "10003.json", 10003);
+        comparator.compareFileToDb(processedFolder + "10004.json", 10004);
+        comparator.compareFileToDb(processedFolder + "10005.json", 10005);
     }
 
     @Features("Compare big input file to expected output result")
