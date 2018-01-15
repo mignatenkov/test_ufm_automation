@@ -60,17 +60,16 @@ public class Generator {
     void generateJson(String pathToInput, int clientCount, int minSubscribers, int maxSubscribers) throws IOException {
         Random random = new Random();
         for(int i=0; i<clientCount; i++) {
-            Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json")), "UTF-8");
-            Gson gson = new GsonBuilder().create();
-
             Subscribers[] subscribers = new Subscribers[randomNumber(minSubscribers, maxSubscribers, random)];
             for(int j=0; j<subscribers.length; j++){
                 subscribers[j] = new Subscribers(random.nextLong(), random.nextLong());
-            }
-            Client client = new Client(random.nextLong(), subscribers);
+                Client client = new Client(random.nextLong(), subscribers);
 
-            gson.toJson(client);
-            writer.close();
+                Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json")), "UTF-8");
+                Gson gson = new GsonBuilder().create();
+                gson.toJson(client);
+                writer.close();
+            }
         }
     }
 
