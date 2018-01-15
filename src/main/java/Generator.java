@@ -1,12 +1,11 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import pojo.Input;
 import pojo.Input.Subscriber;
 import pojo.Output;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.nio.file.Path;
 
 public class Generator {
@@ -54,5 +53,13 @@ public class Generator {
     @Step
     Output generateOutputFromInputFile(String pathToFile) {
         return generateOutput(new Gson().fromJson(readFile(pathToFile), Input.class));
+    }
+
+    @Step
+    void generateJson(String pathToInput, Client client) throws IOException {
+        Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json"), "UTF-8");
+        Gson gson = new GsonBuilder().create();
+        gson.toJson(client);
+        writer.close();
     }
 }
