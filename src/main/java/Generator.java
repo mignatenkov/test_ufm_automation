@@ -7,6 +7,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.*;
 import java.nio.file.Path;
+java.util.Random
 
 public class Generator {
 
@@ -56,10 +57,24 @@ public class Generator {
     }
 
     @Step
-    void generateJson(String pathToInput, Client client) throws IOException {
-        Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json"), "UTF-8");
-        Gson gson = new GsonBuilder().create();
-        gson.toJson(client);
-        writer.close();
+    void generateJson(String pathToInput, int clientCount, int minSubscribers, int maxSubscribers) throws IOException {
+        Random random = new Random();
+        for(int i=0; i<clientCount; i++) {
+            Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json")), "UTF-8");
+            Gson gson = new GsonBuilder().create();
+
+            Subscribers[] subscribers = new Subscribers[randomNumber(minSubscribers, maxSubscribers, random)];
+            for(int j=0; j<subscribers.length; j++){
+                subscribers[j] = new Subscribers(random.nextLong(), random.nextLong());
+            }
+            Client client = new Client(random.nextLong(), subscribers);
+
+            gson.toJson(client);
+            writer.close();
+        }
+    }
+
+    private int randomNumber(int minSubscribers, int maxSubscribers, Random random){
+        return (int)((long)(((long)minSubscribers - (long)maxSubscribers + 1) * random.nextDouble()) + minSubscribers);
     }
 }
