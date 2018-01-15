@@ -1,0 +1,21 @@
+{
+  "clientId": 11199,
+  "subscribers": [
+    {
+      "id": 88,
+      "spent": 999
+    },
+    {
+      "id": 91,
+      "spent": 50
+    },
+    {
+      "id": 11,
+      "spent": 500
+    },
+    {
+      "id": 81,
+      "spent": 150
+    }
+  ]
+}
