@@ -15,20 +15,20 @@ public class Comparator {
     @Step
     private void compareSpentTotal(Output testOutput, Output output) {
         String message = "spentTotal value is not matching expected:";
-        softAssert.assertEquals(testOutput.getSpentTotal(), output.getSpentTotal(), message);
+        softAssert.assertEquals(output.getSpentTotal(), testOutput.getSpentTotal(), message);
     }
 
     @Step
     private void compareIsBig(Output testOutput, Output output) {
         String message = "isBig value is not matching expected:";
-        softAssert.assertEquals(testOutput.getIsBig(), output.getIsBig(), message);
+        softAssert.assertEquals(output.getIsBig(), testOutput.getIsBig(), message);
     }
 
     @Step
     @Title("some title")
     private void compareClientId(Output testOutput, Output output) {
         final String message = "clientId value is not matching expected:";
-        softAssert.assertEquals(testOutput.getClientId(), output.getClientId(), message);
+        softAssert.assertEquals(output.getClientId(),testOutput.getClientId(), message);
     }
 
     @Step
@@ -36,7 +36,7 @@ public class Comparator {
         String message = "Name of file isn't matching clientId:";
         String name = new File(filePath).getName();
         String clientId = String.valueOf(output.getClientId()).concat(".json");
-        softAssert.assertEquals(name, clientId, message);
+        softAssert.assertEquals(clientId, name, message);
     }
 
     private void compareOutputToOutput(Output testOutput, Output output) {
@@ -67,8 +67,8 @@ public class Comparator {
         Output testOutput = new Generator().generateOutputFromInputFile(inputFilePath);
         Output appOutput = new Generator().readOutputFromFile(outputFilePath);
         compareOutputToOutput(testOutput, appOutput);
-        compareFileNameToClientId(inputFilePath, testOutput);
-        compareFileNameToClientId(outputFilePath, testOutput);
+//        compareFileNameToClientId(inputFilePath, testOutput); //turned these methods off because file names
+//        compareFileNameToClientId(outputFilePath, testOutput);//may not correspond to clientId inside these files
         printFileToFile(testOutput, appOutput);
         softAssert.assertAll();
     }

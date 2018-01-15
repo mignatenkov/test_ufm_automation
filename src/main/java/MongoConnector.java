@@ -1,4 +1,3 @@
-import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -14,8 +13,8 @@ public class MongoConnector {
 
     MongoConnector() {
         mongo = new MongoClient("localhost", 27017);
-        databaseName = "ufm";
-        collectionName = "any";
+        databaseName = "test";
+        collectionName = "clients";
     }
 
     @Step
@@ -28,6 +27,6 @@ public class MongoConnector {
     Output getOutputFromDB(long clientId) {
         Document doc = getEntryByClientId(clientId);
         Assert.assertNotNull(doc, "Can't find enrty in MongoDB with required clientId: " + clientId + ".");
-        return new Gson().fromJson(doc.toJson(), Output.class);
+        return new Output(doc.getLong("clientId"), doc.getLong("spentTotal"), doc.getBoolean("isBig"));
     }
 }

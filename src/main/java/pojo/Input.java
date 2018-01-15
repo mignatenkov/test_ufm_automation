@@ -14,32 +14,23 @@ public class Input {
         return subscribers;
     }
 
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setSubscribers(List<Subscriber> subscribers) {
+        this.subscribers = subscribers;
+    }
+
+    public void addSubscriber(Subscriber subscriber) {
+        this.subscribers.add(subscriber);
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"clientId\":" + clientId +
                 ", \"subscribers\":" + subscribers +
                 '}';
-    }
-
-    public class Subscriber {
-        private long id;
-        private long spent;
-
-        public long getId() {
-            return id;
-        }
-
-        public long getSpent() {
-            return spent;
-        }
-
-        @Override
-        public String toString() {
-            return "{" +
-                    "\"id\":" + id +
-                    ", \"spent\":" + spent +
-                    '}';
-        }
     }
 }
