@@ -1,17 +1,18 @@
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.testng.Assert;
 import pojo.Input;
 import pojo.Output;
 import pojo.Subscriber;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Generator {
@@ -79,25 +80,5 @@ public class Generator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    void generateJson(String pathToInput, int clientCount, int minSubscribers, int maxSubscribers) throws IOException {
-        Random random = new Random();
-        for (int i = 0; i < clientCount; i++) {
-            Subscribers[] subscribers = new Subscribers[randomNumber(minSubscribers, maxSubscribers, random)];
-            for (int j = 0; j < subscribers.length; j++) {
-                subscribers[j] = new Subscribers(random.nextLong(), random.nextLong());
-                Client client = new Client(random.nextLong(), subscribers);
-
-                Writer writer = new OutputStreamWriter(new FileOutputStream(String.join(pathToInput, client.clientId + ".json")), "UTF-8");
-                Gson gson = new GsonBuilder().create();
-                gson.toJson(client);
-                writer.close();
-            }
-        }
-    }
-
-    private int randomNumber(int minSubscribers, int maxSubscribers, Random random) {
-        return (int) ((long) (((long) minSubscribers - (long) maxSubscribers + 1) * random.nextDouble()) + minSubscribers);
     }
 }
