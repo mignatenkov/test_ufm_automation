@@ -20,6 +20,7 @@ Gson, MongoDB driver
 ### Требования 
  * `Java` version = 8
  * `Maven` verion >= 3.3
+ * `MongoDB` (см. Readme основного проекта)
 
 ### Запуск:
 
