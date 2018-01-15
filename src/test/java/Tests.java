@@ -66,4 +66,26 @@ public class Tests {
     public void oneBigFileDB() {
         new Comparator().compareFileToDb(processedFolder + "10012.json", 10012);
     }
+
+    @Features("Calculate the processing time of small files")
+    @Test
+    public void smallFilesTimer() {
+        new Comparator().fileWaiter(90011, 1);
+        new Comparator().fileWaiter(90012, 10);
+        new Comparator().fileWaiter(90013, 50);
+        new Comparator().fileWaiter(90014, 100);
+        new Comparator().fileWaiter(90015, 150);
+        new Comparator().fileWaiter(90016, 200);
+    }
+
+    @Features("Calculate the processing time of big files")
+    @Test
+    public void bigFilesTimer() {
+        new Comparator().fileWaiter(90021, 500);
+        new Comparator().fileWaiter(90022, 600);
+        new Comparator().fileWaiter(90023, 800);
+        new Comparator().fileWaiter(90024, 900);
+        new Comparator().fileWaiter(90025, 950);
+        new Comparator().fileWaiter(90026, 1000);
+    }
 }

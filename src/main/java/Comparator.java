@@ -4,6 +4,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Comparator {
     private SoftAssert softAssert;
@@ -79,5 +81,25 @@ public class Comparator {
         compareOutputToOutput(testOutput, dbAppOutput);
         printFileToDb(testOutput, dbAppOutput);
         softAssert.assertAll();
+    }
+
+    public void fileWaiter(long clientId, int subscribersCount) {
+        softAssert.assertEquals(1, 1, "File " + clientId + " was processed for: " + waiter(clientId, subscribersCount) + " ns");
+    }
+
+    private long waiter(long clientId, int subscribersCount) {
+        File file = new File("ufm_dev/output/" + clientId + ".json");
+        new Generator().generateRandomInputFile(clientId, subscribersCount);
+        long startTime = System.nanoTime();
+        int iter = 0;
+        while (!file.exists() && iter < 500) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            iter += 1;
+        }
+        return System.nanoTime() - startTime;
     }
 }
