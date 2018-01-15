@@ -2,7 +2,7 @@
 Автоматизация тестирования для test_ufm
 
 ### Требования 
- * `Java` version >= 8
+ * `Java` version = 8
  * `Maven` verion >= 3.3
 
 ### Запуск:
